@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "TP2-STORAGE-ACCOUNT", "TP2-STORAGE-ACCOUNT\TP2-STORAGE-ACCOUNT.deployproj", "{CBC11722-A865-409B-B505-924D59D3ECD7}"
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "TP2_InfrastructureBlob", "TP2_InfrastructureBlob\TP2_InfrastructureBlob.deployproj", "{CBC11722-A865-409B-B505-924D59D3ECD7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP2-FUNCTION-APP", "TP2-FUNCTION-APP\TP2-FUNCTION-APP.csproj", "{FA480F3C-3440-43EE-8905-B31B4232BE82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TP2_BlobFunction", "TP2_BlobFunction\TP2_BlobFunction.csproj", "{FA480F3C-3440-43EE-8905-B31B4232BE82}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
