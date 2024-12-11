@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "TP2_FUNCTION_APP": {
+      "commandName": "Project",
+      "commandLineArgs": "--port 7060",
+      "launchBrowser": false
+    }
+  }
+}

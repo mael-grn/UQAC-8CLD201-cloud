@@ -145,5 +145,15 @@
         "publicAccess": "None"
       }
     }
-  ]
+  ],
+  "outputs": {
+    "blobstoragekey": {
+      "type": "String",
+      "value": "[listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_satp2_name')), providers('Microsoft.Storage', 'storageAccounts').apiVersions[0]).keys[0].value]"
+    },
+    "blobstoragestring": {
+      "type": "String",
+      "value": "[concat('DefaultEndpointsProtocol=https;AccountName=', parameters('storageAccounts_satp2_name'), ';AccountKey=', listKeys(resourceId('Microsoft.Storage/storageAccounts', parameters('storageAccounts_satp2_name')), '2019-06-01').keys[0].value, ';EndpointSuffix=core.windows.net')]"
+    }
+  }
 }

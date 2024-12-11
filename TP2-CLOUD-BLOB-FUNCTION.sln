@@ -5,6 +5,8 @@ VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "TP2-STORAGE-ACCOUNT", "TP2-STORAGE-ACCOUNT\TP2-STORAGE-ACCOUNT.deployproj", "{CBC11722-A865-409B-B505-924D59D3ECD7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP2-FUNCTION-APP", "TP2-FUNCTION-APP\TP2-FUNCTION-APP.csproj", "{FA480F3C-3440-43EE-8905-B31B4232BE82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{CBC11722-A865-409B-B505-924D59D3ECD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CBC11722-A865-409B-B505-924D59D3ECD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CBC11722-A865-409B-B505-924D59D3ECD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FA480F3C-3440-43EE-8905-B31B4232BE82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FA480F3C-3440-43EE-8905-B31B4232BE82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FA480F3C-3440-43EE-8905-B31B4232BE82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FA480F3C-3440-43EE-8905-B31B4232BE82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
