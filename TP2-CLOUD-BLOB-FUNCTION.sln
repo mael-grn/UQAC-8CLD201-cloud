@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "TP2-STORAGE-ACCOUNT", "TP2-STORAGE-ACCOUNT\TP2-STORAGE-ACCOUNT.deployproj", "{CBC11722-A865-409B-B505-924D59D3ECD7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CBC11722-A865-409B-B505-924D59D3ECD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBC11722-A865-409B-B505-924D59D3ECD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBC11722-A865-409B-B505-924D59D3ECD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBC11722-A865-409B-B505-924D59D3ECD7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D7CA85DD-76BD-43C0-8BB4-F71A6EDC3E77}
+	EndGlobalSection
+EndGlobal
