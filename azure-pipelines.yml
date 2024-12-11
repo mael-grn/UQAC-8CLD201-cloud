@@ -15,13 +15,13 @@ variables:
     value: 'Canada Central'
     # Project folder name for the Infrastructure
   - name: AzureAppInfrastructure
-    value: 'InfrastructureBlob'
+    value: 'TP2_InfrastructureBlob'
     # Project folder name for the Azure Function
   - name: AzureAppFunction
-    value: 'BlobFunction'
+    value: 'TP2_BlobFunction'
     # Name of the Infrastructure Resource (Blob)
   - name: AzureBlob
-    value: 'blobfunctionguro'
+    value: 'blobfunctiontp2'
   - name: AzureBlobContainerName
     value: 'blob'
   - name: AzureFunctionAppName
