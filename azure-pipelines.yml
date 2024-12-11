@@ -29,12 +29,7 @@ variables:
   - name: BlobString
     value: 'carotte'
 
-resources:
-  pipelines:
-    - pipeline: 'AzureFunctionApp'
-      source: 'AzureFunctionApp'
-      project: 'AzureFunctionApp'
-      trigger: true
+
 
 stages:
 - stage: Infra
