@@ -22,10 +22,8 @@ variables:
     # Name of the Infrastructure Resource (Blob)
   - name: AzureBlob
     value: 'blobfunctiontp2'
-  - name: AzureBlobContainerName
-    value: 'blob'
   - name: AzureFunctionAppName
-    value: 'GuroFunctionApp'
+    value: 'TP2FunctionApp'
   - name: BlobString
     value: 'carotte'
 
@@ -51,7 +49,6 @@ stages:
         templateLocation: 'Linked artifact'
         csmFile: '$(Build.SourcesDirectory)\$(AzureAppInfrastructure)\azuredeploy.json'
         csmParametersFile: '$(Build.SourcesDirectory)\$(AzureAppInfrastructure)\azuredeploy.parameters.json'
-        overrideParameters: '-storageAccountName $(AzureBlob) -storageBlobContainerName $(AzureBlobContainerName)'
         deploymentMode: 'Incremental'
         deploymentOutputs: 'Deployment1'
         
