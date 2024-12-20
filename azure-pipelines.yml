@@ -16,9 +16,12 @@ variables:
     # Project folder name for the Infrastructure
   - name: AzureAppInfrastructure
     value: 'TP2_InfrastructureBlob'
-    # Project folder name for the Azure Function
-  - name: AzureAppFunction
+    # Project folder name for the Azure blob Function
+  - name: AzureAppFunctionBlob
     value: 'TP2_BlobFunction'
+        # Project folder name for the Azure queue Function
+  - name: AzureAppFunctionQueue
+    value: 'TP2_SBFunction'
     # Name of the Infrastructure Resource (Blob)
   - name: AzureBlob
     value: 'blobfunctiontp2'
@@ -77,8 +80,8 @@ stages:
         deploymentMode: 'Incremental'
 
 
-- stage: Function
-  displayName: Function Deployment
+- stage: FunctionBlob
+  displayName: Blob Triggered Function Deployment
 
   jobs:
   - job: FunctionBuild
@@ -89,20 +92,20 @@ stages:
       displayName: Restore Project
       inputs:
         command: 'restore'
-        projects: '$(Build.SourcesDirectory)/$(AzureAppFunction)/*.csproj'
+        projects: '$(Build.SourcesDirectory)/$(AzureAppFunctionBlob)/*.csproj'
         
     - task: DotNetCoreCLI@2
       displayName: Build Azure Function
       inputs:
         command: 'build'
-        projects: '$(Build.SourcesDirectory)/$(AzureAppFunction)/*.csproj'
+        projects: '$(Build.SourcesDirectory)/$(AzureAppFunctionBlob)/*.csproj'
         arguments: '--configuration Release --output $(Build.BinariesDirectory)'
 
     - task: DotNetCoreCLI@2
       displayName: Publish Azure Function
       inputs:
         command: 'publish'
-        projects: '$(Build.SourcesDirectory)/$(AzureAppFunction)/*.csproj'
+        projects: '$(Build.SourcesDirectory)/$(AzureAppFunctionBlob)/*.csproj'
         arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
         publishWebProjects: false
         zipAfterPublish: true
@@ -141,3 +144,65 @@ stages:
         package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
         deploymentMethod: 'runFromPackage'
         appSettings: '-ConnectionString $(blobstring) -ConnectionString__blob "https://$(AzureBlob).blob.core.windows.net/"'
+
+- stage: FunctionQueue
+  displayName: Queue Triggered Function Deployment
+
+  jobs:
+  - job: FunctionBuild
+    displayName: Function Build
+
+    steps:
+    - task: DotNetCoreCLI@2
+      displayName: Restore Project
+      inputs:
+        command: 'restore'
+        projects: '$(Build.SourcesDirectory)/$(AzureAppFunctionQueue)/*.csproj'
+        
+    - task: DotNetCoreCLI@2
+      displayName: Build Azure Function
+      inputs:
+        command: 'build'
+        projects: '$(Build.SourcesDirectory)/$(AzureAppFunctionQueue)/*.csproj'
+        arguments: '--configuration Release --output $(Build.BinariesDirectory)'
+
+    - task: DotNetCoreCLI@2
+      displayName: Publish Azure Function
+      inputs:
+        command: 'publish'
+        projects: '$(Build.SourcesDirectory)/$(AzureAppFunctionQueue)/*.csproj'
+        arguments: '--configuration Release --output $(Build.ArtifactStagingDirectory)'
+        publishWebProjects: false
+        zipAfterPublish: true
+        modifyOutputPath: false
+    - task: PublishBuildArtifacts@1
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+
+  - job: FunctionDeploy
+    displayName: Function Deployment
+    dependsOn: FunctionBuild
+
+    steps:
+    - checkout: none
+    - task: DownloadBuildArtifacts@1
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'drop'
+        downloadPath: '$(System.ArtifactsDirectory)'
+        cleanDestinationFolder: true
+
+    - task: AzureFunctionApp@2
+      inputs:
+        connectedServiceNameARM: 'Azure subscription TP Cloud(60802648-40a5-4ac4-bfd8-4552de815888)'
+        appType: 'functionApp'
+        appName: '$(AzureFunctionAppName)'
+        deployToSlotOrASE: true
+        resourceGroupName: '$(resourceGroupName)'
+        slotName: 'production'
+        package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+        deploymentMethod: 'runFromPackage'
+        appSettings: '-ConnectionString $(QueueString)'
