@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TP2_BlobFunction", "TP2_Blo
 EndProject
 Project("{151D2E53-A2C4-4D7D-83FE-D05416EBD58E}") = "TP2_FunctionAppDeployment", "TP2_FunctionAppDeployment\TP2_FunctionAppDeployment.deployproj", "{1EAFAB4A-2977-4889-94AD-78C68C33A3A6}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TP2_SBFunction", "TP2_SBFunction\TP2_SBFunction.csproj", "{370410C6-075C-4574-A05A-6930023D4797}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{1EAFAB4A-2977-4889-94AD-78C68C33A3A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1EAFAB4A-2977-4889-94AD-78C68C33A3A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1EAFAB4A-2977-4889-94AD-78C68C33A3A6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{370410C6-075C-4574-A05A-6930023D4797}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{370410C6-075C-4574-A05A-6930023D4797}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{370410C6-075C-4574-A05A-6930023D4797}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{370410C6-075C-4574-A05A-6930023D4797}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
