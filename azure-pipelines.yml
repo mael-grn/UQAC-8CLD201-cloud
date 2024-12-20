@@ -8,6 +8,7 @@ trigger:
 
 pool: "Pipelines TP2"
 
+# Definition des variables pour l'execution du pipeline
 variables:
   - name: resourceGroupName
     value: 'TP2-CLOUD'
@@ -32,7 +33,7 @@ variables:
   - name: AZP_AGENT_CLEANUP_PSMODULES_IN_POWERSHELL
     value: 'true'
 
-
+# Premiere étape : déploiement de l'infrastructure necessaire pour le projet. Comprend le storage account.
 stages:
 - stage: Infra
   displayName: Infrastructure Deployment
@@ -56,15 +57,17 @@ stages:
         deploymentMode: 'Incremental'
         deploymentOutputs: 'Deployment1'
         
+        # Assignation de la variable blobstring necessaire pour connecter la function1 au storage blob
     - script: |
         echo ##vso[task.setvariable variable=BlobString;isOutput=true;isSecure=false]$(Deployment1.blobstoragestring.value)
       name: AssignKey
 
+# Cette etape permet de deployer la function app, qui contiendra les function du projet.
 - stage: FuncDep
   displayName: Function App Deployment
   jobs:
   - job: Deploy
-    displayName: Function Appp Deployment
+    displayName: Function App Deployment
     steps:
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
@@ -79,7 +82,7 @@ stages:
         csmParametersFile: '$(Build.SourcesDirectory)\TP2_FunctionAppDeployment\azuredeploy.parameters.json'
         deploymentMode: 'Incremental'
 
-
+# Cette etape correspond au deploiement de la première fonction, qui est appelée dès qu'un nouveau fichier est deposé dans le storage account
 - stage: FunctionBlob
   displayName: Blob Triggered Function Deployment
 
@@ -145,6 +148,7 @@ stages:
         deploymentMethod: 'runFromPackage'
         appSettings: '-ConnectionString $(blobstring) -ConnectionString__blob "https://$(AzureBlob).blob.core.windows.net/"'
 
+# Cette etape correspond au deploiement de la deuxieme fonction qui attend un message sur le service bus. Par la suite, elle va modifier les dimmensions de l'image et remplacer l'ancienne image par la nouvelle dans le storage account
 - stage: FunctionQueue
   displayName: Queue Triggered Function Deployment
 
@@ -205,3 +209,5 @@ stages:
         slotName: 'production'
         package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
         deploymentMethod: 'runFromPackage'
+        appSettings: '-ConnectionString $(blobstring) -ConnectionString__blob "https://$(AzureBlob).blob.core.windows.net/"'
+
