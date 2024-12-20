@@ -61,7 +61,7 @@ stages:
       name: AssignKey
 
 - stage: FuncDep
-  displayName: Function Appp Deployment
+  displayName: Function App Deployment
   jobs:
   - job: Deploy
     displayName: Function Appp Deployment
@@ -205,4 +205,3 @@ stages:
         slotName: 'production'
         package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
         deploymentMethod: 'runFromPackage'
-        appSettings: '-ConnectionString $(QueueString)'
