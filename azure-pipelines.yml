@@ -1,33 +1,21 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
 - master
 
-pool: "Pipelines TP2"
+pool: "Pipelines TP2" # Vous pouvez essayer avec un agent hébergé pour voir si le problème persiste (vmImage: 'windows-latest')
 
 variables:
   - name: resourceGroupName
     value: 'TP2-CLOUD'
   - name: rgLocation
     value: 'Canada Central'
-    # Project folder name for the Infrastructure
   - name: AzureAppInfrastructure
     value: 'TP2_InfrastructureBlob'
-    # Project folder name for the Azure Function
   - name: AzureAppFunction
     value: 'TP2_BlobFunction'
-    # Name of the Infrastructure Resource (Blob)
   - name: AzureBlob
     value: 'blobfunctiontp2'
   - name: AzureFunctionAppName
     value: 'TP2FunctionApp'
-  - name: BlobString
-    value: 'carotte'
-
-
 
 stages:
 - stage: Infra
@@ -38,7 +26,6 @@ stages:
     steps:
     - task: AzureResourceManagerTemplateDeployment@3
       displayName: ARM Template Deployment
-      name: ARMdeploy
       inputs:
         deploymentScope: 'Resource Group'
         azureResourceManagerConnection: 'Azure subscription TP Cloud(60802648-40a5-4ac4-bfd8-4552de815888)'
@@ -50,26 +37,26 @@ stages:
         csmFile: '$(Build.SourcesDirectory)\$(AzureAppInfrastructure)\azuredeploy.json'
         csmParametersFile: '$(Build.SourcesDirectory)\$(AzureAppInfrastructure)\azuredeploy.parameters.json'
         deploymentMode: 'Incremental'
-        deploymentOutputs: 'Deployment1'
-        
-    - script: |
-        echo ##vso[task.setvariable variable=BlobString;isOutput=true;isSecure=false]$(Deployment1.blobstoragestring.value)
-      name: AssignKey
+        # Supprimez deploymentOutputs car nous n'en avons pas besoin pour la démo
+        # deploymentOutputs: 'Deployment1'
+
+    # Supprimez la tâche script car nous n'avons plus besoin de la variable BlobString
+    # - script: |
+    #     echo ##vso[task.setvariable variable=BlobString;isOutput=true;isSecure=false]$(Deployment1.blobstoragestring.value)
+    #   name: AssignKey
 
 - stage: Function
   displayName: Function Deployment
-
   jobs:
   - job: FunctionBuild
     displayName: Function Build
-
     steps:
     - task: DotNetCoreCLI@2
       displayName: Restore Project
       inputs:
         command: 'restore'
         projects: '$(Build.SourcesDirectory)/$(AzureAppFunction)/*.csproj'
-        
+
     - task: DotNetCoreCLI@2
       displayName: Build Azure Function
       inputs:
@@ -86,6 +73,7 @@ stages:
         publishWebProjects: false
         zipAfterPublish: true
         modifyOutputPath: false
+
     - task: PublishBuildArtifacts@1
       inputs:
         PathtoPublish: '$(Build.ArtifactStagingDirectory)'
@@ -95,10 +83,6 @@ stages:
   - job: FunctionDeploy
     displayName: Function Deployment
     dependsOn: FunctionBuild
-
-    variables: 
-      blobstring: $[ stageDependencies.Infra.Deploy.outputs['AssignKey.BlobString'] ]
-
     steps:
     - checkout: none
     - task: DownloadBuildArtifacts@1
@@ -119,4 +103,5 @@ stages:
         slotName: 'production'
         package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
         deploymentMethod: 'runFromPackage'
-        appSettings: '-ConnectionString $(blobstring) -ConnectionString__blob "https://$(AzureBlob).blob.core.windows.net/"'
+        # Simplifiez appSettings pour la démo :
+        appSettings: '-WEBSITE_RUN_FROM_PACKAGE 1'
