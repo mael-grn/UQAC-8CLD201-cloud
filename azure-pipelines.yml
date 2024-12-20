@@ -23,7 +23,7 @@ variables:
   - name: AzureBlob
     value: 'blobfunctiontp2'
   - name: AzureFunctionAppName
-    value: 'Function1'
+    value: 'TP2FunctionApp1'
   - name: BlobString
     value: 'carotte'
   - name: AZP_AGENT_CLEANUP_PSMODULES_IN_POWERSHELL
