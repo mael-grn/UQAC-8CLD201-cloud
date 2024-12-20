@@ -9,8 +9,8 @@ namespace TP2_FUNCTION_APP
 {
     public class Function1
     {
-        private readonly string connectionString = ""; // A COMPLETER MAEL 
-        private readonly string queueName = "messagequeue"; // A VERIFIER LE NOM
+        private readonly string connectionString = "Endpoint=sb://tp2servicebus1.servicebus.windows.net/;SharedAccessKeyName=Policy;SharedAccessKey=e3pBeWHlH9YfVboa5PZAGercrlOT7AjjV+ASbHcxe0M=;EntityPath=messagequeue";
+        private readonly string queueName = "messagequeue";
 
         [FunctionName("Function1")]
         public async Task Run([BlobTrigger("blob/{name}", Connection = "ConnectionString")] Stream myBlob, string name, ILogger log)
