@@ -53,6 +53,7 @@ stages:
         deploymentOutputs: 'Deployment1'
         
     - script: |
+        Import-Module Microsoft.PowerShell.Security
         echo ##vso[task.setvariable variable=BlobString;isOutput=true;isSecure=true]$(Deployment1.blobstoragestring.value)
       name: AssignKey
 
