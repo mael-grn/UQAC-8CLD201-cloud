@@ -64,7 +64,7 @@ stages:
   displayName: Function App Deployment
   jobs:
   - job: Deploy
-    displayName: Function Appp Deployment
+    displayName: Function App Deployment
     steps:
     - task: AzureResourceManagerTemplateDeployment@3
       inputs:
