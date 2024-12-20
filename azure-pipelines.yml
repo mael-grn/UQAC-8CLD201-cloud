@@ -26,7 +26,8 @@ variables:
     value: 'TP2FunctionApp'
   - name: BlobString
     value: 'carotte'
-
+  - name: AZP_AGENT_CLEANUP_PSMODULES_IN_POWERSHELL
+    value: 'true'
 
 
 stages:
